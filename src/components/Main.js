@@ -49,11 +49,11 @@ const Main = () => {
         }
     }
 
-  return (
+  return (  
     <main>
         <Routes>
-            <Route path='/' element={<Header/>} />
-            <Route path='/booking' element={<Booking availableTimes={state} dispatch={dispatch} submitForm={submitForm} />} />
+            <Route path='/' element="" />
+            <Route path='/booking' element={<Booking availableTimes={state} dispatch={dispatch} SubmitForm={submitForm} />} />
             <Route path='/confirmed' element={<ConfirmedBooking/>} />
         </Routes>
     </main>

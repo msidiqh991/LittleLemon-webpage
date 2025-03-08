@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Nav />
-      <Header/>
+      <Header />
       <Main />
       <Menu/>
       <Footer/>

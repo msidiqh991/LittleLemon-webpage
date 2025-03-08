@@ -1,30 +1,33 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import BookingForm from './components/BookingForm';
-import Header from './components/Header';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-test('Renders the Header heading', () => {
-    render(<BrowserRouter><App /></BrowserRouter>);
-    const headingElement = screen.getByText("Reserve Table");
-    expect(headingElement).toBeInTheDocument();
+test("Renders the Header heading", () => {
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
 
-    const reserveButton = screen.getByRole("button");
-    fireEvent.click(reserveButton);
+  const headingElement = screen.getByRole("heading", { name: /Little Lemon/i });
+  expect(headingElement).toBeInTheDocument();
+});
 
-    const headingElementNew = screen.getByText("Choose Date");
-    expect(headingElementNew).toBeInTheDocument();
-})
+test("Clicking Reserve button shows time dropdown", async () => {
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
 
-test('Initialize/Update Times', () => {
-  render(<BrowserRouter><App /></BrowserRouter>);
-  const reserveButton = screen.getByRole("button");
+  // Pastikan tombol "Reserve" ada sebelum mengkliknya
+  const reserveButton = await screen.findByText(/Reserve Table/i);
+  expect(reserveButton).toBeInTheDocument();
+
+  // Klik tombol reserve
   fireEvent.click(reserveButton);
 
-  const testTime = []
-  // userEvent.selectOptions(screen.getByLabelText("Choose Time"),screen.getByRole('option', { name: testTime}))
-  // expect(screen.getByRole('option', { name: testTime}).selected).toBe(true);
-
-
-})
+  // Tunggu hingga elemen dropdown waktu muncul
+  const timeDropdown = await screen.findByLabelText(/Choose Time/i);
+  expect(timeDropdown).toBeInTheDocument();
+});

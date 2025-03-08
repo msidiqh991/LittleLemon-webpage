@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ConfirmedBooking = () => {
-  return (
-    <div className='confirm'>
-        <div>
-            <h1>Booking has been <span>confirmed!</span></h1>
-        </div>
-    </div>
-  )
-}
+  const navigate = useNavigate();
 
-export default ConfirmedBooking
+  useEffect(() => {
+    Swal.fire({
+      title: "Booking has been Confirmed!",
+      icon: "success",
+      draggable: true,
+    }).then(() => {
+      navigate("/");
+    });
+  },);
+
+  return (
+    <div className="confirm">
+      <div></div>
+    </div>
+  );
+};
+
+export default ConfirmedBooking;
